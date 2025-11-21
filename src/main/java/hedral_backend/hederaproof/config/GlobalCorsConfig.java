@@ -33,6 +33,7 @@ public class GlobalCorsConfig {
 
         // THIS IS THE KEY THAT FIXES FLUTTER
         config.addAllowedOriginPattern("*");
+        config.addAllowedOriginPattern("https://ecom-46653.web.app/");
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
