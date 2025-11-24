@@ -1,15 +1,14 @@
 # Stage 1: Build the application
-FROM openjdk:21-jdk-slim as build
-RUN apt-get update && apt-get install -y maven
+FROM maven:3.9.5-eclipse-temurin-21 AS build
 WORKDIR /app
 
 COPY .mvn .mvn
-COPY mvnw .
+COPY mvnw mvnw
 RUN chmod +x mvnw
 
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+COPY pom.xml pom.xml
+COPY src src
+RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Runtime
 FROM eclipse-temurin:21-jdk-jammy AS runtime
