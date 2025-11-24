@@ -3,14 +3,14 @@ FROM maven:3.9.5-eclipse-temurin-21 AS build
 WORKDIR /app
 
 COPY .mvn .mvn
-COPY mvnw .
-COPY pom.xml .
-COPY src ./src
-
+COPY mvnw mvnw
 RUN chmod +x mvnw
+
+COPY pom.xml pom.xml
+COPY src src
 RUN ./mvnw clean package -DskipTests
 
-# Stage 2: Run the app
+# Stage 2: Runtime
 FROM eclipse-temurin:21-jdk-jammy AS runtime
 WORKDIR /app
 
@@ -21,4 +21,4 @@ COPY --from=build /app/target/hederaproof-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 
 # Define the command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
