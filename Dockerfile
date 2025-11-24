@@ -20,7 +20,7 @@ WORKDIR /app
 
 # Copy the built JAR file from the build stage
 # Assuming the JAR file is named 'hedral-proof-0.0.1-SNAPSHOT.jar' based on common Spring Boot project naming
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/hederaproof-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port that Spring Boot listens on (default is 8080)
 EXPOSE 8080
