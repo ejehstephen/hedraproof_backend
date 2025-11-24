@@ -1,29 +1,24 @@
-# Use a slim OpenJDK 21 image as the base
-FROM openjdk:21-jdk-slim as build
-
-# Set the working directory inside the container
+# Stage 1: Build the application
+FROM maven:3.9.5-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy the Maven project files (pom.xml and src)
+COPY .mvn .mvn
+COPY mvnw .
 COPY pom.xml .
 COPY src ./src
 
-# Build the application using Maven
-# The -Dmaven.test.skip=true flag skips running tests during the build
-RUN ./mvnw package -Dmaven.test.skip=true
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
 
-# Use a smaller base image for the final runtime
-FROM openjdk:21-jre-slim
-
-# Set the working directory
+# Stage 2: Run the app
+FROM eclipse-temurin:21-jdk-jammy AS runtime
 WORKDIR /app
 
 # Copy the built JAR file from the build stage
-# Assuming the JAR file is named 'hedral-proof-0.0.1-SNAPSHOT.jar' based on common Spring Boot project naming
+# Assuming the JAR file is named 'hederaproof-0.0.1-SNAPSHOT.jar' based on common Spring Boot project naming
 COPY --from=build /app/target/hederaproof-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port that Spring Boot listens on (default is 8080)
 EXPOSE 8080
 
 # Define the command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
