@@ -1,35 +1,27 @@
-# flyctl launch added from .gitignore
-**\HELP.md
-**\target
-**\.mvn\wrapper\maven-wrapper.jar
-!**\**\src\main\**\target
-!**\**\src\test\**\target
-
-### STS ###
-**\.apt_generated
-**\.classpath
-**\.factorypath
-**\.project
-**\.settings
-**\.springBeans
-**\.sts4-cache
-
-### IntelliJ IDEA ###
-**\.idea
-**\*.iws
-**\*.iml
-**\*.ipr
-
-### NetBeans ###
-nbproject\private
-nbbuild
-dist
-nbdist
-.nb-gradle
-**\build
-!**\**\src\main\**\build
-!**\**\src\test\**\build
-
-### VS Code ###
-**\.vscode
+# Ignore common build artifacts and IDE files for Spring Boot Maven projects
+.git
+.mvn/wrapper/maven-wrapper.jar
+target/
+*.log
+tmp/
+temp/
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated/
+.springBeans/
+.sts4-cache/
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build/
+HELP.md
 fly.toml
